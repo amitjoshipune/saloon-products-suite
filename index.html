@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Craze Men's Saloon</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Noto Sans Devanagari", "Noto Sans", sans-serif;
+      background: #111;
+      color: #f4f1ea;
+    }
+    header, .bar, .legend { max-width: 52rem; margin: 0 auto; padding: 0.8rem 1rem; }
+    h1 { margin: 0; font-size: 1.6rem; }
+    .place { margin: 0.2rem 0 0; color: #d9d0c0; }
+    #note { min-height: 1.2em; font-weight: 700; }
+    .room {
+      position: relative;
+      max-width: 52rem;
+      margin: 0 auto;
+      min-height: 32rem;
+      background: #000;
+      border: 6px solid #f60;
+      display: grid;
+      grid-template-columns: 1.6rem 1fr 1fr 7.6rem;
+      grid-template-rows: auto auto auto;
+      gap: 1.1rem 1rem;
+      padding: 3.2rem 0.8rem 4.8rem 0.4rem;
+    }
+    .mirror {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      height: 1.4rem;
+      border: 3px solid #f60;
+      border-radius: 0.6rem;
+      color: #f60;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+    .mirror.top { top: 0.6rem; }
+    .mirror.bottom { bottom: 0.6rem; }
+    .door {
+      position: absolute;
+      left: 0.15rem;
+      top: 4.6rem;
+      height: 12.5rem;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      color: #3ddc6a;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+    }
+    .chair { min-width: 0; }
+    .chair.one { grid-column: 2; grid-row: 1; }
+    .chair.two { grid-column: 3; grid-row: 1; }
+    .chair.three { grid-column: 3; grid-row: 2; }
+    .block {
+      height: 5.2rem;
+      border: 2px solid #f60;
+    }
+    .block.green { background: #19a34a; }
+    .block.red { background: #e10600; }
+    .block.grey { background: #8d8d8d; }
+    .block.black { background: #050505; border-style: dashed; }
+    .chair h2 {
+      margin: 0.35rem 0 0;
+      color: #3ddc6a;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-decoration: underline;
+    }
+    .state { margin: 0.15rem 0 0; font-size: 0.92rem; line-height: 1.3; }
+    .state.green { color: #3ddc6a; }
+    .state.red { color: #ff5a54; }
+    .state.grey { color: #c8c8c8; }
+    .state.black { color: #f4f1ea; }
+    .fixture {
+      color: #3ddc6a;
+      font-weight: 700;
+      margin: 0;
+    }
+    .sofa { grid-column: 2; grid-row: 3; align-self: end; max-width: 12rem; }
+    .wait { grid-column: 3; grid-row: 3; align-self: end; }
+    .basin { grid-column: 4; grid-row: 2; align-self: end; color: #f4f1ea; white-space: nowrap; }
+    select { width: 100%; margin-top: 0.35rem; font: inherit; padding: 0.25rem; }
+    .hidden { display: none; }
+    .legend { display: flex; flex-wrap: wrap; gap: 0.7rem 1.2rem; color: #d9d0c0; }
+    .swatch { display: inline-block; width: 0.9rem; height: 0.9rem; border: 1px solid #f60; vertical-align: -0.1rem; margin-right: 0.3rem; }
+    .swatch.black { background: #111; border: 2px dashed #f4f1ea; }
+    .bar { display: flex; gap: 0.5rem; align-items: center; }
+    .bar input, .bar button { font: inherit; padding: 0.45rem 0.6rem; }
+    @media (max-width: 700px) {
+      .room {
+        grid-template-columns: 1rem 1fr 1fr;
+        min-height: 0;
+        padding-bottom: 3.4rem;
+      }
+      .basin { grid-column: 2 / span 2; grid-row: 3; justify-self: end; }
+      .sofa, .wait { grid-row: 4; font-size: 0.85rem; }
+      .block { height: 3.6rem; }
+      .door { letter-spacing: 0.08em; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Craze Men's Saloon</h1>
+    <p class="place">Ganesh Nagar, Dhayari, Pune</p>
+    <p id="note" role="status"></p>
+  </header>
+
+  <section class="room" aria-label="Saloon floor">
+    <div class="mirror top">MIRROR</div>
+    <div class="door">GLASS DOOR ENTRY</div>
+
+    <article class="chair one" data-chair="0">
+      <div class="block green"></div>
+      <h2>CHAIR 1</h2>
+      <p class="state green"></p>
+      <select class="hidden" aria-label="Chair 1 status"></select>
+    </article>
+    <article class="chair two" data-chair="1">
+      <div class="block green"></div>
+      <h2>CHAIR 2</h2>
+      <p class="state green"></p>
+      <select class="hidden" aria-label="Chair 2 status"></select>
+    </article>
+    <article class="chair three" data-chair="2">
+      <div class="block green"></div>
+      <h2>CHAIR 3</h2>
+      <p class="state"></p>
+      <select class="hidden" aria-label="Chair 3 status"></select>
+    </article>
+
+    <p class="fixture sofa">waiting couch / sofa for 2</p>
+    <p class="fixture wait">waiting chair</p>
+    <p class="fixture basin">WASH BASIN</p>
+    <div class="mirror bottom">MIRROR</div>
+  </section>
+
+  <div class="legend">
+    <span><i class="swatch" style="background:#19a34a"></i>Khali / उपलब्ध</span>
+    <span><i class="swatch" style="background:#e10600"></i>Vyast hain / व्यस्त हैं</span>
+    <span><i class="swatch" style="background:#8d8d8d"></i>Asthayi, uplabdh nahi / अस्थायी रूप से उपलब्ध नहीं</span>
+    <span><i class="swatch black"></i>Abhi seva me nahi / अभी सेवा में नहीं</span>
+  </div>
+
+  <form class="bar" id="gate">
+    <input id="code" type="password" inputmode="numeric" autocomplete="off" placeholder="Operator code" aria-label="Operator code">
+    <button type="submit" id="unlock">Unlock</button>
+    <button type="button" id="lock" class="hidden">Lock</button>
+  </form>
+
+  <script>
+    const PASSWORD = "08061980";
+    const TEXT = {
+      green: "Khali / उपलब्ध",
+      red: "Vyast hain / व्यस्त हैं",
+      grey: "Asthayi roop se uplabdh nahi / अस्थायी रूप से उपलब्ध नहीं",
+      black: "Abhi seva me nahi / अभी सेवा में नहीं"
+    };
+    const OPTIONS = [
+      ["green", "Green — khali / उपलब्ध"],
+      ["red", "Red — vyast hain / व्यस्त हैं"],
+      ["grey", "Grey — asthayi, uplabdh nahi"],
+      ["black", "Black — abhi seva me nahi"]
+    ];
+    const note = document.querySelector("#note");
+    const chairs = [...document.querySelectorAll(".chair")];
+    let state = ["green", "green", "green"];
+    let shared = false;
+    let admin = sessionStorage.getItem("craze-admin") === "1";
+
+    chairs.forEach((chair) => {
+      const select = chair.querySelector("select");
+      OPTIONS.forEach(([value, label]) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = label;
+        select.append(option);
+      });
+      select.addEventListener("change", () => save());
+    });
+
+    function paint() {
+      chairs.forEach((chair, index) => {
+        const color = state[index] || "green";
+        const block = chair.querySelector(".block");
+        block.className = "block " + color;
+        const label = chair.querySelector(".state");
+        label.textContent = TEXT[color] || "";
+        label.className = "state " + color;
+        const select = chair.querySelector("select");
+        select.value = color;
+        select.classList.toggle("hidden", !admin);
+      });
+      document.querySelector("#lock").classList.toggle("hidden", !admin);
+      document.querySelector("#unlock").classList.toggle("hidden", admin);
+    }
+
+    async function load(resetNote) {
+      try {
+        const response = await fetch("/status", { cache: "no-store" });
+        if (!response.ok) throw new Error("no-status");
+        const data = await response.json();
+        if (!Array.isArray(data.chairs) || data.chairs.length !== 3) throw new Error("bad");
+        state = data.chairs;
+        shared = true;
+        if (resetNote) note.textContent = "Live board. Every phone on this Wi-Fi sees the same chairs.";
+      } catch (error) {
+        shared = false;
+        const saved = localStorage.getItem("craze-chairs");
+        if (saved) {
+          try { state = JSON.parse(saved); } catch (ignore) { state = ["green", "green", "green"]; }
+        }
+        if (resetNote) note.textContent = "This phone only. Other phones will not see a change until the salon server is running.";
+      }
+      paint();
+    }
+
+    async function save() {
+      state = chairs.map((chair) => chair.querySelector("select").value);
+      paint();
+      if (!shared) {
+        localStorage.setItem("craze-chairs", JSON.stringify(state));
+        return;
+      }
+      const response = await fetch("/status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: PASSWORD, chairs: state })
+      });
+      if (!response.ok) note.textContent = "Could not save. Try Unlock again.";
+    }
+
+    document.querySelector("#gate").addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (document.querySelector("#code").value !== PASSWORD) {
+        note.textContent = "Wrong code.";
+        return;
+      }
+      admin = true;
+      sessionStorage.setItem("craze-admin", "1");
+      document.querySelector("#code").value = "";
+      paint();
+      note.textContent = shared
+        ? "Operator on. A change shows on every phone on this Wi-Fi."
+        : "Operator on. This phone only, until the salon server is running.";
+    });
+
+    document.querySelector("#lock").addEventListener("click", () => {
+      admin = false;
+      sessionStorage.removeItem("craze-admin");
+      paint();
+      load(true);
+    });
+
+    load(true);
+    setInterval(() => { if (shared && !admin) load(false); }, 4000);
+  </script>
+</body>
+</html>
