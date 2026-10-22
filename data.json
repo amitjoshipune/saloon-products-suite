@@ -1,0 +1,27 @@
+{
+  "salons": {
+    "craze": {
+      "name": "Craze Men's Saloon",
+      "address": "Ganesh Nagar, Dhayari, Pune",
+      "adminCode": "1234",
+      "chairs": [
+        {
+          "id": 1,
+          "name": "Chair 1",
+          "status": "available"
+        },
+        {
+          "id": 2,
+          "name": "Chair 2",
+          "status": "available"
+        },
+        {
+          "id": 3,
+          "name": "Chair 3",
+          "status": "unavailable"
+        }
+      ],
+      "updatedUtc": "2026-10-22T07:55:40.214927"
+    }
+  }
+}
